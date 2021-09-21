@@ -11,31 +11,73 @@ import {
 } from "../src/table-names";
 import { tableInfo, indexList } from "../src/queries/table-info";
 
-const CREATE_MOVIES_TABLE = ``;
+const CREATE_MOVIES_TABLE = `CREATE TABLE ${MOVIES} 
+(
+  id integer not null primary key,
+  imdb_id text not null,
+  popularity real not null,
+  budget real not null,
+  budget_adjusted real not null,
+  revenue real not null,
+  revenue_adjusted real not null,
+  original_title text not null,
+  homepage text,
+  tagline text,
+  overview text not null,
+  runtime integer not null,
+  release_date text not null
+)`;
 
-const CREATE_MOVIE_RATINGS_TABLE = ``;
+const CREATE_MOVIE_RATINGS_TABLE = `CREATE TABLE ${MOVIE_RATINGS}
+(
+  user_id integer not null,
+  movie_id integer not null,
+  rating real not null,
+  time_created text not null,
+  primary key(user_id, movie_id)
+)`;
 
-const CREATE_ACTORS_TABLE = ``;
+const CREATE_ACTORS_TABLE = `CREATE TABLE ${ACTORS}
+(
+  id integer not null primary key,
+  full_name text not null
+)`;
 
-const CREATE_KEYWORDS_TABLE = ``;
+const CREATE_KEYWORDS_TABLE = `CREATE TABLE ${KEYWORDS} 
+(
+  id integer not null primary key,
+  keyword text not null
+)`;
 
-const CREATE_DIRECTORS_TABLE = ``;
+const CREATE_DIRECTORS_TABLE = `CREATE TABLE ${DIRECTORS}
+(
+  id integer not null primary key,
+  full_name text not null
+)`;
 
-const CREATE_GENRES_TABLE = ``;
+const CREATE_GENRES_TABLE = `CREATE TABLE ${GENRES}
+(
+  id integer not null primary key,
+  genre text not null
+)`;
 
-const CREATE_PRODUCTION_COMPANIES_TABLE = ``;
+const CREATE_PRODUCTION_COMPANIES_TABLE = `CREATE TABLE ${PRODUCTION_COMPANIES}
+(
+  id integer not null primary key,
+  company_name text not null
+)`;
 
-const CREATE_INDEX_MOVIES_RELEASE_DATE = ``;
+const CREATE_INDEX_MOVIES_RELEASE_DATE = `CREATE INDEX movies_release_date_idx ON movies(release_date)`;
 
-const CREATE_INDEX_MOVIE_RATINGS_TIME_CREATED = ``;
+const CREATE_INDEX_MOVIE_RATINGS_TIME_CREATED = `CREATE INDEX movie_ratings_time_created_idx ON movie_ratings(time_created)`;
 
-const CREATE_UNIQUE_INDEX_MOVIES_IMDB_ID = ``;
+const CREATE_UNIQUE_INDEX_MOVIES_IMDB_ID = `CREATE UNIQUE INDEX movies_imdb_id_unq_idx ON movies(imdb_id)`;
 
-const CREATE_UNIQUE_INDEX_KEYWORDS_KEYWORD = ``;
+const CREATE_UNIQUE_INDEX_KEYWORDS_KEYWORD = `CREATE UNIQUE INDEX keywords_keyword_unq_idx ON keywords(keyword)`;
 
-const CREATE_UNIQUE_INDEX_GENRES_GENRE = ``;
+const CREATE_UNIQUE_INDEX_GENRES_GENRE = `CREATE UNIQUE INDEX genres_genre_unq_idx ON genres(genre)`;
 
-const CREATE_UNIQUE_INDEX_PRODUCTION_COMPANIES_COMPANY_NAME = ``;
+const CREATE_UNIQUE_INDEX_PRODUCTION_COMPANIES_COMPANY_NAME = `CREATE UNIQUE INDEX production_companies_company_name_unq_idx ON production_companies(company_name)`;
 
 describe("Tables", () => {
   let db: Database;
